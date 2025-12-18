@@ -15,23 +15,16 @@ def profiler(
     report_name: str = typer.Option("report", "--report-name", help="Base name for outputs"),
     preview: bool = typer.Option(False, "--preview", help="Print a short summary"),
 ):
-    # 1️⃣ Read CSV
+    
     rows = read_csv_rows(input_path)
-
-    # 2️⃣ Profile
     report = basic_profile(rows)
-
-    # 3️⃣ Ensure output directory exists
     out_dir.mkdir(parents=True, exist_ok=True)
-
-    # 4️⃣ Write JSON
     json_path = out_dir / f"{report_name}.json"
     json_path.write_text(
         json.dumps(report, indent=2, ensure_ascii=False),
         encoding="utf-8",
     )
 
-    # 5️⃣ Write Markdown
     md_path = out_dir / f"{report_name}.md"
     write_markdown(report, md_path)
 
