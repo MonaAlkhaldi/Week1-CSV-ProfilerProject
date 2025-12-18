@@ -2,7 +2,7 @@ from pathlib import Path
 import csv
 
 def read_csv_rows(path: str | Path) -> list[dict[str, str]]:
-    path = Path(path)   # 🔑 convert here
+    path = Path(path)  
 
     if not path.exists():
         raise FileNotFoundError(f"CSV not found: {path}")
