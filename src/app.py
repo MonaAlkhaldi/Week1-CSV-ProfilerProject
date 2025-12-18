@@ -2,9 +2,7 @@ import csv
 import json
 from io import StringIO
 from pathlib import Path
-
 import streamlit as st
-
 from csv_profiler.profile import basic_profile
 from csv_profiler.render import render_markdown
 
@@ -13,11 +11,9 @@ st.set_page_config(page_title="CSV Profiler", layout="wide")
 st.title("CSV Profiler")
 st.caption("Upload CSV → profile → export JSON + Markdown")
 
-
 st.sidebar.header("Inputs")
 show_preview = st.sidebar.checkbox("Show preview", value=True)
 report_name = st.sidebar.text_input("Report name", value="report")
-
 
 uploaded = st.file_uploader("Upload a CSV", type=["csv"])
 rows = None
@@ -36,11 +32,9 @@ if uploaded is not None:
 else:
     st.info("Upload a CSV to begin.")
 
-
 generate_disabled = rows is None
 if st.button("Generate report", disabled=generate_disabled):
     st.session_state["report"] = basic_profile(rows)
-
 
 report = st.session_state.get("report")
 
@@ -108,7 +102,6 @@ if report is not None:
         mime="text/markdown",
     )
 
-    
     if st.button("Save to outputs/"):
         out_dir = Path("outputs")
         out_dir.mkdir(exist_ok=True)
