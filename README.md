@@ -17,7 +17,8 @@ Generate a profiling report for a CSV file.
 ## Run GUI
  -  uv run streamlit run app.py
  -   If you have a src/ folder:
- - Go to the src file and run this command in the powershell : 
+ - Go to the src file and run this command in the powershell :
+ - uv run streamlit run app.py 
 
 # Outputs
 ##CLI Output :
