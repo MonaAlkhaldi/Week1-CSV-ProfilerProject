@@ -2,9 +2,7 @@ import csv
 import json
 from io import StringIO
 from pathlib import Path
-
 import streamlit as st
-
 from csv_profiler.profile import basic_profile
 from csv_profiler.render import render_markdown
 
@@ -39,12 +37,12 @@ else:
     st.info("Upload a CSV to begin.")
 
 
-# ------------------ Generate report ------------------
+
 if rows is not None and st.button("Generate report"):
     st.session_state["report"] = basic_profile(rows)
 
 
-# ------------------ Display report ------------------
+
 report = st.session_state.get("report")
 
 if report is not None:
@@ -62,7 +60,7 @@ if report is not None:
     with st.expander("Markdown preview"):
         st.markdown(render_markdown(report))
 
-    # ------------------ Export ------------------
+  
     json_text = json.dumps(report, indent=2, ensure_ascii=False)
     md_text = render_markdown(report)
 
