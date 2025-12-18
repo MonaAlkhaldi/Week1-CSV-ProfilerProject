@@ -20,9 +20,10 @@ Generate a profiling report for a CSV file.
  - Go to the src file and run this command in the powershell : 
 
 # Outputs
-
-- Generates reports in JSON and Markdown formats
-
+##CLI Output :
+- Generates reports in JSON and Markdown formats and be saved in outputs
+  
+##GUI Output :
 - Displays a CSV preview in the Streamlit interface
 
 - Shows profiling results in a web interface
