@@ -77,40 +77,41 @@ def write_markdown(report: dict, path: str | Path) -> None:
 
 
 
-
 def render_markdown(report: dict) -> str:
     lines: list[str] = []
 
-    lines.append("# CSV Profiling Report\n")
-    lines.append(f"Generated: {datetime.now().isoformat(timespec='seconds')}\n")
+    ts = datetime.now().isoformat(timespec="seconds")
+    lines.append("# CSV Profiling Report")
+    lines.append("")
+    lines.append(f"- **Generated:** `{ts}`")
+    lines.append("")
 
-    summary = report.get("summary", {})
-    n_rows = summary.get("rows", 0)
-    n_cols = summary.get("columns", 0)
+    summary = report.get("summary", {}) or {}
+    rows = int(summary.get("rows", 0) or 0)
+    cols_count = int(summary.get("columns", 0) or 0)
 
-    lines.append("## Summary\n")
-    lines.append(f"- Rows: **{n_rows}**")
-    lines.append(f"- Columns: **{n_cols}**\n")
+    lines.append("## Summary")
+    lines.append(f"- Rows: **{rows}**")
+    lines.append(f"- Columns: **{cols_count}**")
+    lines.append("")
 
-    lines.append("## Columns\n")
-
-    cols = report.get("columns", {})
-
-    if isinstance(cols, dict):
-        for name, info in cols.items():
-            lines.append(f"### {name}")
-            lines.append(f"- {info}\n")
-    else:
-        lines.append("| name | type | missing | missing_pct | unique |")
-        lines.append("|---|---:|---:|---:|---:|")
-        for c in cols:
-            lines.append(
-                f"| {c.get('name','')} | {c.get('type','')} | {c.get('missing',0)} | "
-                f"{float(c.get('missing_pct',0)):.1f}% | {c.get('unique',0)} |"
-            )
+    cols = report.get("columns", {}) or {}
 
     
-    lines.append("\n## Notes\n")
+    lines.append("## Columns (table)")
+    lines.extend(md_table_header())
+
+    if isinstance(cols, dict):
+        for name, col in cols.items():
+            col = col or {}
+            missing = int(col.get("missing", 0) or 0)
+            unique = int(col.get("unique", 0) or 0)
+            typ = col.get("type", "")
+            missing_pct = (missing / rows) if rows else 0.0
+            lines.append(md_col_row(name, typ, missing, missing_pct, unique))
+
+    lines.append("")
+    lines.append("## Notes")
     lines.append("- Missing values are: `''`, `na`, `n/a`, `null`, `none`, `nan` (case-insensitive)")
 
     return "\n".join(lines)
