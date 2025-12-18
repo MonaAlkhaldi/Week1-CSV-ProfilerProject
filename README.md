@@ -14,10 +14,9 @@ Generate a profiling report for a CSV file.
   -uv run python -m csv_profiler.cli ../data/sample.csv
 
 ## Run GUI
-  - If you have a src/ folder:
-- Mac/Linux: export PYTHONPATH=src
--  Windows:   $env:PYTHONPATH="src"
  -  uv run streamlit run app.py
+ -   If you have a src/ folder:
+ - Go to the src file and run this command in the powershell : 
 
 # Outputs
 
