@@ -6,11 +6,12 @@ Generate a profiling report for a CSV file.
 
 ## Setup
    - uv venv -p 3.11
+   - .venv\Scripts\activate 
    - uv pip install -r requirements.txt
 
 ## Run CLI
-  - If you have a src/ folder:
-  - Go to the src file and run this command in the powershell : 
+  - make sure you are in the src folder :
+  - Go to the src file a run this command in the powershell : 
   -uv run python -m csv_profiler.cli ../data/sample.csv
 
 ## Run GUI
